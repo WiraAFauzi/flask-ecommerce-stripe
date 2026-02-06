@@ -54,6 +54,28 @@ This project is intentionally built as a **portfolio showcase** to demonstrate p
 
 ---
 
+## Screenshots
+
+### Store Front
+![Store Front](screenshots/store.png)
+
+### Product Page
+![Product Page](screenshots/products.png)
+
+### Orders & Checkout
+![Orders](screenshots/orders.png)
+![Stripe Checkout](screenshots/checkout.png)
+
+### Admin Dashboard
+![Admin Dashboard](screenshots/admin-dashboard.png)
+
+### Admin Product Management
+![Admin Products](screenshots/admin-manage_products.png)
+
+### Admin Orders Management
+![Admin Products](screenshots/admin-orders.png)
+
+
 ## 📁 Project Structure
 
 ECOMMERCE/
