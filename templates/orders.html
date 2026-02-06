@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-4">Your Orders</h2>
+
+{% if orders %}
+<table class="table table-striped align-middle">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Qty</th>
+      <th>Total</th>
+      <th>Status</th>
+      <th style="width: 280px;"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <td>{{ order.product_name }}</td>
+
+      <td>${{ "%.2f"|format(order.price) }}</td>
+
+      <td>
+        {% if order.status == "pending" %}
+          <form
+            action="/orders/edit/{{ order.id }}"
+            method="POST"
+            class="d-flex gap-2"
+          >
+            <input
+              type="number"
+              name="quantity"
+              value="{{ order.quantity }}"
+              min="1"
+              class="form-control form-control-sm"
+              style="width: 70px;"
+            >
+            <button class="btn btn-sm btn-outline-primary">
+              Update
+            </button>
+          </form>
+        {% else %}
+          {{ order.quantity }}
+        {% endif %}
+      </td>
+
+      <td class="fw-bold">
+        ${{ "%.2f"|format(order.total) }}
+      </td>
+
+      <td>
+        {% if order.status == "paid" %}
+          <span class="badge bg-success">
+            Paid
+          </span>
+        {% else %}
+          <span class="badge bg-secondary">
+            Pending
+          </span>
+        {% endif %}
+      </td>
+
+      <td>
+        {% if order.status == "pending" %}
+          <a
+            href="/checkout/{{ order.id }}"
+            class="btn btn-dark btn-sm me-2"
+          >
+            Checkout
+          </a>
+
+          <a
+            href="/orders/delete/{{ order.id }}"
+            class="btn btn-outline-danger btn-sm"
+            onclick="return confirm('Delete this order?')"
+          >
+            Delete
+          </a>
+        {% else %}
+          <span class="text-muted fst-italic">
+            Completed ✓
+          </span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <div class="alert alert-info">
+    You have no orders yet.
+  </div>
+{% endif %}
+
+<a href="/" class="btn btn-outline-secondary mt-3">
+  Continue Shopping
+</a>
+
+{% endblock %}

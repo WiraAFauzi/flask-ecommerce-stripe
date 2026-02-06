@@ -1,0 +1,17 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.product-card img {
+  height: 220px;
+  object-fit: cover;
+}
+
+.product-card {
+  border: none;
+  transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}

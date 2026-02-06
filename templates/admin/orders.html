@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="mb-4">All Orders</h2>
+
+<table class="table table-bordered align-middle">
+  <thead class="table-light">
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>Product</th>
+      <th>Total</th>
+      <th>Status</th>
+      <th style="width: 160px;">Action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for order in orders %}
+    <tr>
+      <td>{{ order.id }}</td>
+      <td>{{ order.user_email }}</td>
+      <td>{{ order.product_name }}</td>
+      <td class="fw-bold">
+        ${{ "%.2f"|format(order.total) }}
+      </td>
+
+      <td>
+        {% if order.status == "paid" %}
+          <span class="badge bg-success">Paid</span>
+        {% elif order.status == "shipped" %}
+          <span class="badge bg-primary">Shipped</span>
+        {% else %}
+          <span class="badge bg-secondary">{{ order.status }}</span>
+        {% endif %}
+      </td>
+
+      <td>
+        {% if order.status == "paid" %}
+          <form
+            action="/admin/orders/ship/{{ order.id }}"
+            method="POST"
+            class="d-inline"
+          >
+            <button
+              class="btn btn-sm btn-success"
+              onclick="return confirm('Mark this order as shipped?')"
+            >
+              Ship
+            </button>
+          </form>
+        {% else %}
+          —
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,5 @@
+Flask
+Flask-Login
+Flask-SQLAlchemy
+stripe
+python-dotenv
